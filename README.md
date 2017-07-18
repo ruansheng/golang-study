@@ -14,4 +14,5 @@ go run demo_insert.go
 ```
 go run demo_lock.go
 go run demo_channel.go
+/usr/local/php/bin/php -c /usr/local/php/etc/php.ini demo_php.php
 ```
