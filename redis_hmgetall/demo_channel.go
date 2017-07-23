@@ -18,7 +18,7 @@ func test(key string, port int) {
 	//设置redis服务器地址
 	client := redis.NewClient(&redis.Options{
 		Addr:     "47.94.226.123:" + strconv.Itoa(port),
-		Password: "",
+		Password: "asdfesdgrrdfgedfedsd",
 		DB:       0,
 	})
 
