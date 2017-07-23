@@ -7,11 +7,11 @@ import (
 	"github.com/go-redis/redis"
 )
 
-func test(key string, i int) {
+func test(key string, i int, port int) {
 	fmt.Println("doing insert key:", key)
 	//设置redis服务器地址
 	client := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     "47.94.226.123:" + strconv.Itoa(port),
 		Password: "",
 		DB:       0,
 	})
@@ -26,7 +26,8 @@ func test(key string, i int) {
 }
 
 func main() {
-	for i := 1; i <= 1000; i++ {
-		test("users"+strconv.Itoa(i), i)
+	ports := []int{6380, 6381, 6382, 6383, 6384, 6385, 6386, 6387, 6388, 6389}
+	for i := 0; i < 10; i++ {
+		test("users"+strconv.Itoa(i), i, ports[i])
 	}
 }

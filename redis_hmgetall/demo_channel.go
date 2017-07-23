@@ -7,17 +7,17 @@ import (
 	"github.com/go-redis/redis"
 )
 
-const CHAN_SIZE = 1000
+const CHAN_SIZE = 10
 
 var ch chan map[string]string
 
 var data map[string]string
 
-func test(key string) {
+func test(key string, port int) {
 	fmt.Println("doing search key:", key)
 	//设置redis服务器地址
 	client := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     "47.94.226.123:" + strconv.Itoa(port),
 		Password: "",
 		DB:       0,
 	})
@@ -35,14 +35,16 @@ func test(key string) {
 }
 
 func main() {
+	ports := []int{6380, 6381, 6382, 6383, 6384, 6385, 6386, 6387, 6388, 6389}
+
 	ch = make(chan map[string]string, CHAN_SIZE)
 	data = make(map[string]string)
 
-	for i := 1; i <= CHAN_SIZE; i++ {
-		go test("users" + strconv.Itoa(i))
+	for i := 0; i < CHAN_SIZE; i++ {
+		go test("users"+strconv.Itoa(i), ports[i])
 	}
 
-	for j := 1; j <= CHAN_SIZE; j++ {
+	for j := 0; j < CHAN_SIZE; j++ {
 		tmps := <-ch
 		for index := range tmps {
 			data[index] = tmps[index]
